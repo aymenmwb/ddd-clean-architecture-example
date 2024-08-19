@@ -1,0 +1,40 @@
+
+{% trans_default_domain "import" %}
+
+{% block title %}{{ "Import"|trans }}{% endblock %}
+
+{% block javascripts_end %}
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="row formContent">
+
+            <form class="TabContents col-md-20 col-24 horizontal-form" id="form_create" method="POST" enctype="multipart/form-data">
+                <div data-id="tab_related_orders" class="TabContent TabContentWithTabs">
+                    <div class="module-item-selector clearfix">
+
+                        <div class="column-left columned columned_add">
+                            <h3 class="h3WithTabs">Import</h3>
+                            <fieldset>
+                                <p>
+                                    <select>
+                                            <option value="1">product</option>
+                                    </select>
+
+                                    <input class="file" name="import_file" type="file" />
+                                </p>
+                            </fieldset>
+                            <button type="submit">valider</button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
