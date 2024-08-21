@@ -1,21 +1,37 @@
 <?php
 
-namespace App\Controller;
+namespace Symfony\Controller;
 
+use Fdm\Domain\Product\Entity\ProductRepository;
+use Fdm\Domain\Product\UseCase\ListProducts;
+use Fdm\Presentation\Product\ListProductsPresenter;
+use Symfony\Doctrine\Entity\Product;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\View\ListProductsView;
 use Twig\Environment;
 
 class DefaultController
 {
     private $twig;
 
-    public function __construct(Environment $twig)
+    private $entityManager;
+
+    private $productRepository;
+
+    public function __construct()
     {
-        $this->twig = $twig;
     }
 
-    public function list(Request $request)
+    public function list(ListProducts $listProducts, ListProductsPresenter $presenter, ListProductsView $view)
+    {
+        $listProducts->execute($presenter);
+
+        return $view->generateView($presenter->viewModel());
+    }
+
+    public function import(Request $request)
     {
         $response =  $this->twig->render('import/import.html.twig', array());
 
@@ -24,7 +40,17 @@ class DefaultController
 
             $tmp_file = $postData['import_file']->getPathName();
             $rows = $this->get_array_from_file($tmp_file);
-            dump($rows);exit;
+            foreach ($rows as $row)
+            {
+                $product = new Product();
+                $product->setCode($row[1]);
+                $product->setDescription($row[0]);
+                $product->setPrice($row[2]);
+
+                $this->entityManager->persist($product);
+            }
+
+            $this->entityManager->flush();
         }
 
         return new Response($response);

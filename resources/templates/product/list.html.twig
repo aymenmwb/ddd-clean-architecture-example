@@ -1,0 +1,15 @@
+
+<div>
+    <table style="height: 1000px;">
+        <th style="height: 30px;width: 100px;">Product code</th>
+        <th>Product Price</th>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.code }}</td>
+                <td>{{ product.price }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

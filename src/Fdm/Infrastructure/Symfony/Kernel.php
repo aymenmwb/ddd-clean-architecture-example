@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Symfony;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -9,6 +9,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use Symfony\DependencyInjection\Compiler\AutowireFdmPass;
+use Symfony4\DependencyInjection\Compiler\AutowireSeatPass;
 
 class Kernel extends BaseKernel
 {
@@ -50,6 +52,11 @@ class Kernel extends BaseKernel
         $confDir = $this->getProjectDir().'/config';
         $routes->import($confDir.'/{routes}/*.yaml' );
         $routes->import($confDir.'/routes.yaml');
+    }
+
+    protected function build(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new AutowireFdmPass());
     }
 
 }

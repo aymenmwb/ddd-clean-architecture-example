@@ -12,14 +12,22 @@ services:
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
         tags: ['controller.service_arguments']
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Entity/'
-            - '../src/Kernel.php'
+    Fdm\Domain\:
+        resource: '../src/Fdm/Domain/*'
+        exclude: '../src/Fdm/Domain/{**/Entity,**/Error,**/Model}'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    Symfony\:
+        resource: '../src/Fdm/Infrastructure/Symfony/*'
+        exclude: '../src/Fdm/Infrastructure/Symfony4/{Doctrine,Kernel.php}'
+
+    Symfony\Doctrine\:
+        resource: '../src/Fdm/Infrastructure/Symfony/Doctrine/*'
+        tags: [ 'fdm.autowire' ]
+
+    Symfony\Controller\:
+        resource: '../src/Fdm/Infrastructure/Symfony/Controller'
+        tags: [ 'controller.service_arguments' ]
+
+    Fdm\Presentation\:
+        resource: '../src/Fdm/Presentation/*'
+        exclude: '../src/Seat/Presentation/{**/Entity,**/Error,**/Model}'
