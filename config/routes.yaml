@@ -1,3 +1,11 @@
-index:
+homepage:
     path: /
-    controller: Symfony\Controller\DefaultController::list
+    controller: Symfony5\Controller\HomepageController::list
+
+product_import:
+    path: product/import/
+    controller: Symfony5\Controller\ImportController::import
+
+product_search:
+    path: product/search/
+    controller: Symfony5\Controller\SearchController::search

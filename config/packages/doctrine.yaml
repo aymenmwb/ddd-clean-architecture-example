@@ -13,8 +13,8 @@ doctrine:
         mappings:
             App:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Fdm/Infrastructure/Symfony/Doctrine/Entity'
-                prefix: 'Symfony\Doctrine\Entity'
+                dir: '%kernel.project_dir%/src/Fdm/Infrastructure/Symfony5/Doctrine/Entity'
+                prefix: 'Symfony5\Doctrine\Entity'
                 alias: Fdm
 
 when@test:

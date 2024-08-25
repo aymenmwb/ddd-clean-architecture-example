@@ -12,11 +12,16 @@
         "doctrine/doctrine-bundle": "^2.12",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.19",
+        "symfony/apache-pack": "^1.0",
+        "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
         "symfony/flex": "^1.17|^2",
         "symfony/framework-bundle": "5.4.*",
+        "symfony/google-mailer": "5.4.*",
+        "symfony/mailer": "5.4.*",
         "symfony/runtime": "5.4.*",
+        "symfony/translation": "5.4.*",
         "symfony/twig-bundle": "5.4.*",
         "symfony/yaml": "5.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
@@ -38,7 +43,7 @@
     "autoload": {
         "psr-4": {
             "Fdm\\": "src/Fdm/",
-            "Symfony\\": "src/Fdm/Infrastructure/Symfony/"
+            "Symfony5\\": "src/Fdm/Infrastructure/Symfony5/"
         }
     },
     "autoload-dev": {

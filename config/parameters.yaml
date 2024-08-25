@@ -1,0 +1,11 @@
+parameters:
+    mail:
+        sender_email: '%env(MAILER_SENDER_MAIL)%'
+        sender_name: '%env(MAILER_SENDER_NAME)%'
+        send_email_to: '%env(MAILER_SENDER_MAIL)%'
+
+    import:
+        product:
+            type: product
+            title: 'Food market / Products import'
+            email_to: '%env(MAILER_REC_MAIL)%'

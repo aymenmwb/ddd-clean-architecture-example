@@ -1,0 +1,81 @@
+{% macro urlPagination(page) %}
+    {% set paginationPath = app.request.attributes.get('_route') %}
+    {% set currentFilters = app.request.query.all %}
+
+    {{ path(paginationPath, currentFilters|merge({page: page})) }}
+{% endmacro %}
+
+
+{% macro urlShowPages() %}
+    {% set paginationPath = app.request.attributes.get('_route') %}
+
+    {{ path(paginationPath, currentFilters) }}
+{% endmacro %}
+
+{% import _self as utils %}
+
+{% apply spaceless %}
+    {% if pagesTotal > 1 %}
+
+        {# the number of first and last pages to be displayed #}
+        {% set extremePagesLimit = 1 %}
+
+        {# the number of pages that are displayed around the active page #}
+        {% set nearbyPagesLimit = 2 %}
+
+            <ul class="pagination d-flex justify-content-end">
+                    <li>
+                        <span class="pagination-title">Page {{ pageSelected }} de {{ pagesTotal }}</span>
+                    </li>
+                {% if pageSelected > 1 %}
+                    <li>
+                        <a class="pagination-prevnext" href="{{ utils.urlPagination(1) }}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;&lt;First</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="pagination-prevnext" href="{{ utils.urlPagination(pageSelected-1) }}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;Previous</span>
+                        </a>
+                    </li>
+
+                    {% for i in range(pageSelected-nearbyPagesLimit, pageSelected-1)|filter(i => i > 0) -%}
+                        <li{% if pageSelected == i %} class="active"{% endif %}>
+                            <a href="{{ utils.urlPagination(i) }}">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+                {% elseif showAlwaysFirstAndLast %}
+                    <li><span class="pagination-disabled">&lt;&lt;First</span></li>
+                    <li><span class="pagination-disabled">&lt;Previous</span></li>
+                {% endif %}
+
+                <li class="active"><a href="{{ utils.urlPagination(pageSelected) }}">{{ pageSelected }}</a></li>
+
+                {% if pageSelected < pagesTotal %}
+                    {% for i in range(pageSelected+1, pageSelected + nearbyPagesLimit)|filter(i => i <= pagesTotal) -%}
+                        <li{% if pageSelected == i %} class="active"{% endif %}>
+                            <a href="{{ utils.urlPagination(i) }}">{{ i }}</a>
+                        </li>
+                    {% endfor %}
+
+                    <li>
+                        <a class="pagination-prevnext" href="{{ utils.urlPagination(pageSelected+1) }}">
+                            <span>Next&gt;</span>
+                        </a>
+                    </li>
+
+                    {% if ( pagesTotal != pageSelected) %}
+                        <li>
+                            <a class="pagination-prevnext" href="{{ utils.urlPagination(pagesTotal) }}">
+                                <span>Last&gt;&gt;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                {% elseif showAlwaysFirstAndLast %}
+                    <li><span class="pagination-disabled">Next&gt;</span></li>
+                    <li><span class="pagination-disabled">Last&gt;&gt;</span></li>
+                {% endif %}
+            </ul>
+    {% endif %}
+{% endapply %}

@@ -8,26 +8,29 @@ parameters:
 services:
     # default configuration for services in *this* file
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-        tags: ['controller.service_arguments']
+        autowire: true
+        autoconfigure: true
+        tags: [ 'controller.service_arguments' ]
 
     Fdm\Domain\:
         resource: '../src/Fdm/Domain/*'
         exclude: '../src/Fdm/Domain/{**/Entity,**/Error,**/Model}'
 
-    Symfony\:
-        resource: '../src/Fdm/Infrastructure/Symfony/*'
-        exclude: '../src/Fdm/Infrastructure/Symfony4/{Doctrine,Kernel.php}'
+    Symfony5\:
+        resource: '../src/Fdm/Infrastructure/Symfony5/*'
+        exclude: '../src/Fdm/Infrastructure/Symfony5/{Doctrine,Kernel.php}'
 
-    Symfony\Doctrine\:
-        resource: '../src/Fdm/Infrastructure/Symfony/Doctrine/*'
+    Symfony5\Doctrine\:
+        resource: '../src/Fdm/Infrastructure/Symfony5/Doctrine/*'
         tags: [ 'fdm.autowire' ]
 
-    Symfony\Controller\:
-        resource: '../src/Fdm/Infrastructure/Symfony/Controller'
-        tags: [ 'controller.service_arguments' ]
+    Symfony5\Controller\:
+        resource: '../src/Fdm/Infrastructure/Symfony5/Controller/*'
+
 
     Fdm\Presentation\:
         resource: '../src/Fdm/Presentation/*'
-        exclude: '../src/Seat/Presentation/{**/Entity,**/Error,**/Model}'
+        exclude: '../src/Fdm/Presentation/{**/Entity,**/Error,**/Model}'
+
+    Fdm\SharedUtils\:
+        resource: '../src/Fdm/SharedUtils'
