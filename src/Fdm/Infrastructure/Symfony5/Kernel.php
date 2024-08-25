@@ -1,16 +1,14 @@
 <?php
 
-namespace Symfony;
+namespace Symfony5;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
-use Symfony\DependencyInjection\Compiler\AutowireFdmPass;
-use Symfony4\DependencyInjection\Compiler\AutowireSeatPass;
+use Symfony5\DependencyInjection\Compiler\AutowireFdmPass;
 
 class Kernel extends BaseKernel
 {
@@ -33,16 +31,12 @@ class Kernel extends BaseKernel
         $container->import($configDir.'/{packages}/*.yaml');
         $container->import($configDir.'/{packages}/'.$this->environment.'/*.yaml');
 
-        if (is_file($configDir.'/services.yaml')) {
-            $container->import($configDir.'/services.yaml');
-            $container->import($configDir.'/{services}_'.$this->environment.'.yaml');
-        } else {
-            $container->import($configDir.'/{services}.php');
-        }
+        $container->import($configDir.'/services.yaml');
+        $container->import($configDir.'/parameters.yaml');
 
         $container->extension('twig', [
             'paths' => [
-                '%kernel.project_dir%/resources/views/',
+                '%kernel.project_dir%/resources/templates/',
             ],
         ]);
     }

@@ -2,6 +2,8 @@
 
 namespace Fdm\Presentation\Product;
 
+use Fdm\Domain\Product\Entity\Product;
+
 class ProductsHtmlViewModel
 {
     /**
@@ -15,27 +17,31 @@ class ProductsHtmlViewModel
     public $products;
 
     /**
-     * @param string $code
-     * @param string $description
-     * @param float $price
+     * @param Product $product
      *
      * @return self
      */
-    public function add($product): self
+    public function add(Product $product): self
     {
         $this->products[] = array(
             'code' => $product->getProductCode(),
-            'price' => $product->getProductPrice()
+            'price' => $product->getProductPrice(),
+            'supplier' => $product->getProductSupplier(),
+            'description' => $product->getProductDescription()
         );
 
         return $this;
     }
 
     /**
-     * @return int
+     * @param int $total
+     *
+     * @return self
      */
-    public function total()
+    public function total(int $total): self
     {
-        return $this->total = count($this->products);
+        $this->total = $total;
+
+        return $this;
     }
 }

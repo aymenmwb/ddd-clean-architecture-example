@@ -1,6 +1,4 @@
-
-{% trans_default_domain "import" %}
-
+{% extends 'base.html.twig' %}
 {% block title %}{{ "Import"|trans }}{% endblock %}
 
 {% block javascripts_end %}
@@ -21,8 +19,10 @@
                             <h3 class="h3WithTabs">Import</h3>
                             <fieldset>
                                 <p>
-                                    <select>
-                                            <option value="1">product</option>
+                                    <select name="supplier">
+                                        {% for key,value in suppliers %}
+                                            <option value="{{ key }}">{{ value }}</option>
+                                        {% endfor %}
                                     </select>
 
                                     <input class="file" name="import_file" type="file" />

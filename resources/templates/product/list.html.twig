@@ -1,15 +1,49 @@
+{% extends 'base.html.twig' %}
 
-<div>
-    <table style="height: 1000px;">
-        <th style="height: 30px;width: 100px;">Product code</th>
-        <th>Product Price</th>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.price }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+{% block body %}
+
+
+
+    <div class="search-section">
+        <form id="js-search-form" method="get" action="{{ path('product_search') }}">
+            <input name="query" value="enter text query...">
+            <button type="submit" class="button search" href="{{ path('product_search') }}"> Search</button>
+        </form>
+    </div>
+
+
+    {% set pagination_parameters = {
+        pageSelected: selected_page,
+        pagesTotal: pages_total,
+        showAlwaysFirstAndLast: true
+    } %}
+    {% include 'shared/components/pagination.html.twig' with pagination_parameters only %}
+
+    <div class="container">
+        {% if products|length > 0 %}
+            <table>
+                <th>Product code</th>
+                <th>Product Price</th>
+                <th>Supplier</th>
+                <th>Description</th>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.code }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>{{ product.supplier.supplierName }}</td>
+                        <td>{{ product.description }}</td>
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+        {% else %}
+            <h1 class="nodata-text"> No Data </h1>
+        {% endif %}
+    </div>
+
+    {% include 'shared/components/pagination.html.twig' with pagination_parameters only %}
+
+{% endblock %}

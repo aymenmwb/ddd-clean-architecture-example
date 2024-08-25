@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Symfony\DependencyInjection\Compiler;
+namespace Symfony5\DependencyInjection\Compiler;
 
 use ReflectionClass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

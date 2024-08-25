@@ -1,7 +1,0 @@
-controllers:
-    resource: ../../src/Fdm/Infrastructure/Symfony/Controller/
-    type: annotation
-
-kernel:
-    resource: ../../src/Fdm/Infrastructure/Symfony/Kernel.php
-    type: annotation

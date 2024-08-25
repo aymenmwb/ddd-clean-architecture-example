@@ -4,6 +4,7 @@ namespace Fdm\Domain\Product\UseCase;
 
 use Fdm\Domain\Product\Entity\ProductRepository;
 use Fdm\Presentation\Product\ListProductsPresenter;
+use Fdm\SharedUtils\Pagination;
 
 class ListProducts
 {
@@ -21,12 +22,21 @@ class ListProducts
     }
 
     /**
+     * @param $request
      * @param ListProductsPresenter $presenter
      */
-    public function execute(ListProductsPresenter $presenter)
+    public function execute($request, ListProductsPresenter $presenter)
     {
-        $products = $this->productRepository->getAll();
+        $listProductsResponse = new ListProductsResponse();
 
-        $presenter->present($products);
+        $page = Pagination::computeCurrentPage($request);
+
+        $products = $this->productRepository->getAll($page);
+        $totalProducts = $this->productRepository->countProducts();
+
+        $listProductsResponse->setProducts($products);
+        $listProductsResponse->setTotalProducts($totalProducts);
+
+        $presenter->present($listProductsResponse);
     }
 }

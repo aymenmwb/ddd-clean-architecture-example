@@ -1,0 +1,13 @@
+.container {margin: 50px;}
+table{width: 100%; height: auto;}
+table tbody th{height: 30px;width: 100px;}
+table tbody td{border: 1px solid black;text-align: center; height: 10px; padding: 5px 10px; width: 100px;}
+table tbody td:last-child{border: 1px solid black;text-align: center; width: 300px;}
+
+.button {border: none;color: white;padding: 5px 15px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;}
+.import{background-color: #04AA6D;}
+.search {background-color: #4099e7;}
+
+.search-section{margin-right: 20px; padding:50px; float: right;}
+
+.nodata-text{ text-align: center; color: #999999}

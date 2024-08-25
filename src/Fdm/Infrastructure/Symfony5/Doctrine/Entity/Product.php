@@ -1,5 +1,5 @@
 <?php
-namespace Symfony\Doctrine\Entity;
+namespace Symfony5\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Product
  *
  * @ORM\Table(name="product")
- * @ORM\Entity(repositoryClass="Symfony\Doctrine\Repository\ProductRepository")
+ * @ORM\Entity(repositoryClass="Symfony5\Doctrine\Repository\ProductRepository")
  */
 class Product
 {
@@ -45,7 +45,7 @@ class Product
     /**
      * @var Supplier $brand
      *
-     * @ORM\ManyToOne(targetEntity="Symfony\Doctrine\Entity\Supplier", cascade={"persist", "merge"})
+     * @ORM\ManyToOne(targetEntity="Symfony5\Doctrine\Entity\Supplier", cascade={"persist", "merge"})
      * @ORM\JoinColumns({
      *  @ORM\JoinColumn(name="supplier_id", referencedColumnName="id")
      * })
@@ -117,10 +117,14 @@ class Product
     }
 
     /**
-     * @param Supplier $supplier
+     * @param $supplier
+     *
+     * @return self
      */
-    public function setSupplier(Supplier $supplier): void
+    public function setSupplier($supplier): self
     {
         $this->supplier = $supplier;
+
+        return $this;
     }
 }

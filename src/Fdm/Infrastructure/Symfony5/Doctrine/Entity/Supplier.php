@@ -1,5 +1,5 @@
 <?php
-namespace Symfony\Doctrine\Entity;
+namespace Symfony5\Doctrine\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Supplier
  *
  * @ORM\Table(name="supplier")
- * @ORM\Entity(repositoryClass="Symfony\Doctrine\Repository\SupplierRepository")
+ * @ORM\Entity(repositoryClass="Symfony5\Doctrine\Repository\SupplierRepository")
  */
 class Supplier
 {
@@ -30,7 +30,7 @@ class Supplier
     /**
      * @var array
      *
-     * @ORM\OneToMany(targetEntity="Symfony\Doctrine\Entity\Product", mappedBy="supplier", cascade={"persist", "merge"})
+     * @ORM\OneToMany(targetEntity="Symfony5\Doctrine\Entity\Product", mappedBy="supplier", cascade={"persist", "merge"})
      */
     private $products;
 

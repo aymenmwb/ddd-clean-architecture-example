@@ -1,0 +1,9 @@
+
+/* Component: Pagination---------------------------------------- */
+
+.pagination{color:#999; display: flex; list-style: none;}
+.pagination a{padding:2px 4px;margin:0 2px;text-decoration:none;color:#0064ff;}
+.pagination a:hover{text-decoration:none;color:#fff;background:#000;}
+.pagination a.pagination-prevnext{margin:0 1px;padding:0;}
+.pagination a.pagination-prevnext:hover{text-decoration:underline;color:#0064ff;background:none;}
+.pagination .active a{background:#000;color:#fff;}
